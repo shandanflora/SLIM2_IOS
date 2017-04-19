@@ -22,22 +22,20 @@ public class SettingActivity {
     private MobileElement title = null;
     @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIANavigationBar[1]/UIAButton[2]")
     private MobileElement back = null;
+    @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[1]/UIAStaticText[1]")
+    private MobileElement textViewTimeSchedule = null;
     @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[2]/UIAStaticText[1]")
     private MobileElement textViewWorkLog = null;
     @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[3]/UIAStaticText[1]")
     private MobileElement textViewContinuedClean = null;
     @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[3]/UIAStaticText[2]")
     private MobileElement textViewDisturbValue = null;
-    @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[1]/UIAStaticText[1]")
-    private MobileElement textViewTimeSchedule = null;
     @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[4]/UIAStaticText[1]")
     private MobileElement textConsumable = null;
-    @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[5]/UIAStaticText[1]")
+    @FindBy(xpath = " //UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[5]/UIAStaticText[1]")
     private MobileElement textViewRename = null;
     @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[6]/UIAStaticText[3]")
     private MobileElement textViewFirmware = null;
-    @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[6]/UIAStaticText[1]")
-    private MobileElement textFind = null;
 
     private SettingActivity(){
 
@@ -140,12 +138,6 @@ public class SettingActivity {
                     strLanguage, "Settting", textViewRename.getText(),
                     tranMap.get("random_deebot_rename"), "fail");
         }
-        boolean btextFind = textFind.getText().equalsIgnoreCase(tranMap.get("random_deebot_find_robot"));
-        if (!btextFind) {
-            TranslateErrorReport.getInstance().insetNewLine(
-                    strLanguage, "Settting", textFind.getText(),
-                    tranMap.get("random_deebot_find_robot"), "fail");
-        }
         /*showFirmVersion();
         boolean btextViewFirmware = textViewFirmware.getText().equalsIgnoreCase(tranMap.get("The_host_Settings"));
         if (!btextViewFirmware) {
@@ -154,8 +146,8 @@ public class SettingActivity {
                     tranMap.get("The_host_Settings"), "fail");
         }*/
         return bTitle && btextViewWorkLog && btextViewContinuedClean &&
-                btextViewTimeSchedule && btextConsumable && btextFind &&
-                btextViewDisturbValue && btextViewRename /*&& btextViewFirmware*/;
+                btextViewTimeSchedule && btextConsumable && btextViewDisturbValue
+                && btextViewRename /*&& btextViewFirmware*/;
     }
 
     public boolean translate(Map<String, String> tranMap){

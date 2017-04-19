@@ -23,8 +23,6 @@ public class ConsumableActivity {
     @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIAButton[1]")
     private MobileElement btnSide = null;
     @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIAButton[2]")
-    private MobileElement btnMain = null;
-    @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIAButton[3]")
     private MobileElement btnFilter = null;
     @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[1]/UIAStaticText[1]")
     private MobileElement textRemain = null;
@@ -72,12 +70,6 @@ public class ConsumableActivity {
                     strLanguage, "Consumable", btnSide.getText(),
                     tranMap.get("random_deebot_Side_brush_consumables"), "fail");
         }
-        boolean bbtnMain = btnMain.getText().equalsIgnoreCase(tranMap.get("random_deebot_ROLLER_consumables"));
-        if (!bbtnMain){
-            TranslateErrorReport.getInstance().insetNewLine(
-                    strLanguage, "Consumable", btnMain.getText(),
-                    tranMap.get("random_deebot_ROLLER_consumables"), "fail");
-        }
         boolean bbtnFilter = btnFilter.getText().equalsIgnoreCase(tranMap.get("random_deebot_filter"));
         if (!bbtnFilter){
             TranslateErrorReport.getInstance().insetNewLine(
@@ -102,9 +94,8 @@ public class ConsumableActivity {
                     strLanguage, "Consumable", btnReset.getText(),
                     tranMap.get("random_deebot_consumable_reset"), "fail");
         }
-        return btitle && bbtnSide && bbtnMain &&
-                bbtnFilter && btextRemain && btextViewNote &&
-                bbtnReset;
+        return btitle && bbtnSide && bbtnFilter && btextRemain &&
+                btextViewNote && bbtnReset;
     }
 
     private boolean translateReset(Map<String, String> tranMap, MobileElement element, String strContent){
@@ -137,10 +128,8 @@ public class ConsumableActivity {
         boolean bStatic = staticUI(tranMap);
         boolean bResetSide = translateReset(tranMap, btnSide,
                 tranMap.get("random_deebot_consumable_reset_hint_side_brush"));
-        boolean bResetMain = translateReset(tranMap, btnMain,
-                tranMap.get("random_deebot_consumable_reset_hint_main_brush"));
         boolean bResetFilter = translateReset(tranMap, btnFilter,
                 tranMap.get("random_deebot_consumable_reset_hint_filter"));
-        return bStatic && bResetSide && bResetMain && bResetFilter;
+        return bStatic && bResetSide && bResetFilter;
     }
 }

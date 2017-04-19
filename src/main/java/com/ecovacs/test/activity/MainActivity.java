@@ -73,13 +73,13 @@ public class MainActivity {
         btnAdd.click();
     }
 
-    public void clickDM80i(){
+    public void clickDevice(){
         List<MobileElement> rlList = listView.findElements(By.className("UIATableCell"));
         for (MobileElement rl:rlList){
             List<MobileElement> textList = rl.findElements(By.className("UIAStaticText"));
             for (MobileElement text:textList){
                 logger.info("child elment--" + text.getText());
-                if (text.getText().contains(PropertyData.getProperty("DM80I"))){
+                if (text.getText().contains(PropertyData.getProperty("SLIM2"))){
                     text.click();
                     break;
                 }

@@ -469,7 +469,7 @@ class HandleIntl {
     boolean translateUnibotClean(){
         MainActivity.getInstance().showDeviceList();
         Common.getInstance().waitForSecond(2000);
-        MainActivity.getInstance().clickDM80i();
+        MainActivity.getInstance().clickDevice();
         UnibotCleanActivity.getInstance().showActivity();
         UnibotCleanActivity.getInstance().showText("-");
         boolean bRes = UnibotCleanActivity.getInstance().translate(languageMap);
@@ -480,7 +480,7 @@ class HandleIntl {
 
     boolean translateUnibotSetting(){
         //will delete
-        MainActivity.getInstance().clickDM80i();
+        MainActivity.getInstance().clickDevice();
         //
         UnibotCleanActivity.getInstance().showActivity();
         UnibotCleanActivity.getInstance().clickSetting();
@@ -743,7 +743,7 @@ class HandleIntl {
         //
         //SettingActivity.getInstance().clickTimeSchedule();
         //
-        for (int i = 0; i < 10; i++){
+        for (int i = 0; i < 7; i++){
             System.out.println("i = " + i);
             int iDate = i;
             if(i >= 7){
