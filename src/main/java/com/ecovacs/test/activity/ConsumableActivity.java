@@ -28,7 +28,7 @@ public class ConsumableActivity {
     private MobileElement textRemain = null;
     @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[1]/UIAStaticText[6]")
     private MobileElement textViewNote = null;
-    @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIAButton[4]")
+    @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIAButton[3]")
     private MobileElement btnReset = null;
     @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIAAlert[1]/UIAScrollView[1]/UIAStaticText[2]")
     private MobileElement promptContent = null;
