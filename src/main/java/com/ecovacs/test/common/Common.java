@@ -237,12 +237,12 @@ public class Common {
         //set time 00:00
         for(int i = 0; i < iHour; i++){
             driver.swipe(pointH.x, pointH.y ,
-                    pointH.x, pointH.y + iHeight_H/iDire, 300);
+                    pointH.x, pointH.y + iHeight_H/iDire, 200);
             Common.getInstance().waitForSecond(500);
         }
         for (int j = 0; j < iMin; j++){
             driver.swipe(pointM.x, pointM.y ,
-                    pointM.x, pointM.y + iHeight_M/iDire, 300);
+                    pointM.x, pointM.y + iHeight_M/iDire, 200);
             Common.getInstance().waitForSecond(500);
         }
     }
