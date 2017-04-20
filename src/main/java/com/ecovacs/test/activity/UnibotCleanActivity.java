@@ -32,8 +32,8 @@ public class UnibotCleanActivity {
     private MobileElement textViewStatusValue = null;
     @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIAStaticText[4]")
     private MobileElement textViewStatus = null;
-    @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIAImage[2]")
-    private MobileElement imageBattery = null;
+    /*@FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIAImage[2]")
+    private MobileElement imageBattery = null;*/
     @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIAStaticText[5]")
     private MobileElement textViewDeBattery = null;
     @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIAScrollView[1]/UIAButton[1]")
@@ -80,7 +80,7 @@ public class UnibotCleanActivity {
         boolean bResult = false;
         int iLoop = 0;
         while (true) {
-            if (iLoop > 50) {
+            if (iLoop > 150) {
                 break;
             }
             if (textViewStatusValue.getText().contains(strText)) {
@@ -96,7 +96,7 @@ public class UnibotCleanActivity {
         return bResult;
     }
 
-    private void showStatusCharge() {
+    /*private void showStatusCharge() {
         boolean bResult = false;
         while (!bResult) {
             try {
@@ -107,7 +107,7 @@ public class UnibotCleanActivity {
                 Common.getInstance().waitForSecond(200);
             }
         }
-    }
+    }*/
 
     public void clickSetting(){
         btnRight.click();
@@ -220,12 +220,13 @@ public class UnibotCleanActivity {
                     strLanguage, "UnibotClean", textViewStatusValue.getText(),
                     tranMap.get("random_deebot_state_clean"), "fail");
         }
+        Common.getInstance().waitForSecond(1000);
         //check stand by
         element.click();
         logger.info(textViewStatusValue.getText());
         boolean btextViewStatusValue1 = textViewStatusValue.getText().equalsIgnoreCase(tranMap.get("random_deebot_state_standby"));
         if (!btextViewStatusValue1) {
-            logger.error("Status auto cleaning is not match!!!");
+            logger.error("1Status auto cleaning is not match!!!");
             TranslateErrorReport.getInstance().insetNewLine(
                     strLanguage, "UnibotClean", textViewStatusValue.getText(),
                     tranMap.get("random_deebot_state_standby"), "fail");
@@ -236,7 +237,7 @@ public class UnibotCleanActivity {
         //Common.getInstance().waitForSecond(400);
         boolean btextViewStatusValue2 = textViewStatusValue.getText().equalsIgnoreCase(tranMap.get("random_deebot_state_go_charging"));
         if (!btextViewStatusValue2) {
-            logger.error("Status auto cleaning is not match!!!");
+            logger.error("2Status auto cleaning is not match!!!");
             TranslateErrorReport.getInstance().insetNewLine(
                     strLanguage, "UnibotClean", textViewStatusValue.getText(),
                     tranMap.get("random_deebot_state_go_charging"), "fail");
@@ -251,8 +252,7 @@ public class UnibotCleanActivity {
                     tranMap.get("random_deebot_state_standby"), "fail");
         }
         btnCharge.click();
-        logger.info(textViewStatusValue.getText());
-        showStatusCharge();
+        showText(textViewStatusValue.getText());
         return btextViewStatusValue && btextViewStatusValue1 && btextViewStatusValue2 &&
                 btextViewStatusValue3;
     }

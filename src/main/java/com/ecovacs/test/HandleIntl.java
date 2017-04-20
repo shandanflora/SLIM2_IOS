@@ -480,7 +480,7 @@ class HandleIntl {
 
     boolean translateUnibotSetting(){
         //will delete
-        MainActivity.getInstance().clickDevice();
+        //MainActivity.getInstance().clickDevice();
         //
         UnibotCleanActivity.getInstance().showActivity();
         UnibotCleanActivity.getInstance().clickSetting();
