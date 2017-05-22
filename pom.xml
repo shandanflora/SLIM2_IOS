@@ -166,7 +166,18 @@
               <version>2.18.1</version>
               <configuration>
                   <suiteXmlFiles>
-                      <suiteXmlFile>res\${xmlFileName}</suiteXmlFile>
+                    <!--<suiteXmlFile>res\testng_fake_English.xml</suiteXmlFile>
+                    <suiteXmlFile>res\testng_fake_German.xml</suiteXmlFile>-->
+                    <suiteXmlFile>res\testng_fake_Spanish.xml</suiteXmlFile>
+                    <suiteXmlFile>res\testng_fake_French.xml</suiteXmlFile>
+                    <suiteXmlFile>res\testng_fake_Portuguese.xml</suiteXmlFile>
+                    <suiteXmlFile>res\testng_fake_Italian.xml</suiteXmlFile>
+                    <!--<suiteXmlFile>res\testng_English.xml</suiteXmlFile>
+                    <suiteXmlFile>res\testng_German.xml</suiteXmlFile>
+                    <suiteXmlFile>res\testng_Spanish.xml</suiteXmlFile>
+                    <suiteXmlFile>res\testng_French.xml</suiteXmlFile>
+                    <suiteXmlFile>res\testng_Portuguese.xml</suiteXmlFile>
+                    <suiteXmlFile>res\testng_Italian.xml</suiteXmlFile>-->
                   </suiteXmlFiles>
                   <properties>
                       <property>

@@ -55,6 +55,17 @@ public class UnibotCleanActivity {
         TO_RIGHT,
         TO_LEFT
     }*/
+    //malfunction
+    @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIAAlert[1]/UIAScrollView[1]/UIAStaticText[1]")
+    private MobileElement titlePrompt = null;
+    @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIAAlert[1]/UIAScrollView[1]/UIAStaticText[2]")
+    private MobileElement  contentPrompt = null;
+    @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIAAlert[1]/UIACollectionView[1]/UIACollectionCell[1]/UIAButton[1]")
+    private MobileElement surePrompt = null;
+    @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIAAlert[1]/UIACollectionView[1]/UIACollectionCell[2]/UIAButton[1]")
+    private MobileElement viewPrompt = null;
+    @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIAButton[3]")
+    private MobileElement textViewWarnTip = null;
 
     private UnibotCleanActivity() {
 
@@ -287,5 +298,222 @@ public class UnibotCleanActivity {
         boolean bCheckStatus = checkStatus(tranMap);
         return bStatic && bCheckStatus;
     }
+
+    //
+    private boolean translateMalPrompt(Map<String, String> tranMap, String strKey, String strPage, boolean bSupspend){
+        String strLanguage = tranMap.get("language");
+        boolean bTitle = false;
+        if(!bSupspend){
+            Common.getInstance().showActivity(titlePrompt);
+            String strTitle = titlePrompt.getText().trim();
+            bTitle = strTitle.equalsIgnoreCase
+                    (tranMap.get("random_deebot_state_error").trim());
+            if (!bTitle){
+                TranslateErrorReport.getInstance().insetNewLine(
+                        strLanguage, strPage, strTitle,
+                        tranMap.get("random_deebot_state_error"), "fail");
+            }
+        }
+        Common.getInstance().showActivity(contentPrompt);
+        boolean bContent = contentPrompt.getText().trim().equalsIgnoreCase
+                (tranMap.get(strKey).trim());
+        if (!bContent){
+            TranslateErrorReport.getInstance().insetNewLine(
+                    strLanguage, strPage, contentPrompt.getText(),
+                    tranMap.get(strKey), "fail");
+        }
+        boolean bSure = surePrompt.getText().trim().equalsIgnoreCase
+                (tranMap.get("random_deebot_confirm").trim());
+        if (!bSure){
+            TranslateErrorReport.getInstance().insetNewLine(
+                    strLanguage, strPage, surePrompt.getText(),
+                    tranMap.get("random_deebot_confirm"), "fail");
+        }
+        surePrompt.click();
+        if (bSupspend){
+            return bContent && bSure;
+        }
+        return bTitle && bContent && bSure;
+    }
+
+    public void clickTip(){
+        textViewWarnTip.click();
+    }
+
+    public void clickCharge(){
+        btnCharge.click();
+    }
+
+    //check status
+    private boolean translateMalState(Map<String, String> tranMap, String strKey){
+        boolean bStatusValue = textViewStatusValue.getText().trim().equalsIgnoreCase
+                (tranMap.get(strKey).trim());
+        if (!bStatusValue){
+            TranslateErrorReport.getInstance().insetNewLine(
+                    tranMap.get("language"), "Malfunction", textViewStatusValue.getText(),
+                    tranMap.get(strKey), "fail");
+        }
+        return bStatusValue;
+    }
+
+    //check warn tip
+    private boolean translateWarnTip(Map<String, String> tranMap, String strKey){
+        boolean bWarnTip = textViewWarnTip.getText().trim().equalsIgnoreCase
+                (tranMap.get(strKey).trim());
+        if (!bWarnTip){
+            TranslateErrorReport.getInstance().insetNewLine(
+                    tranMap.get("language"), "Malfunction", textViewWarnTip.getText(),
+                    tranMap.get(strKey), "fail");
+        }
+        return bWarnTip;
+    }
+
+    public boolean dropMalfunction(Map<String, String> tranMap){
+        boolean bPrompt = translateMalPrompt(tranMap, "random_deebot_drop_malfunction",
+                "dropMalfunction", false);
+        boolean bState = translateMalState(tranMap, "random_deebot_state_error");
+        boolean bTip = translateWarnTip(tranMap, "random_deebot_drop_malfunction");
+        return bPrompt && bState && bTip;
+    }
+
+    public boolean wheelMalfunction(Map<String, String> tranMap){
+        logger.info("----wheelMalfunction----");
+        boolean bPrompt = translateMalPrompt(tranMap, "random_deebot_wheel_malfunction",
+                "wheelMalfunction", false);
+        boolean bState = translateMalState(tranMap, "random_deebot_state_error");
+        boolean bTip = translateWarnTip(tranMap, "random_deebot_wheel_malfunction");
+        return bPrompt && bState && bTip;
+    }
+/*
+    public boolean mainBrushMalfunction(Map<String, String> tranMap){
+        logger.info("----mainBrushMalfunction----");
+        boolean bPrompt = translateMalPrompt(tranMap, "random_deebot_mainbrush_malfunction",
+                "mainBrushMalfunction", false);
+        boolean bState = translateMalState(tranMap, "random_deebot_state_error");
+        boolean bTip = translateWarnTip(tranMap, "random_deebot_mainbrush_malfunction");
+        return bPrompt && bState && bTip;
+    }*/
+
+    public boolean sideBrushMalfunction(Map<String, String> tranMap){
+        logger.info("----sideBrushMalfunction----");
+        boolean bPrompt = translateMalPrompt(tranMap, "random_deebot_sidebrush_malfunction",
+                "sideBrushMalfunction", false);
+        boolean bState = translateMalState(tranMap, "random_deebot_state_error");
+        boolean bTip = translateWarnTip(tranMap, "random_deebot_sidebrush_malfunction");
+        return bPrompt && bState && bTip;
+    }
+
+    public boolean dustMalfunction(Map<String, String> tranMap){
+        logger.info("----dustMalfunction----");
+        boolean bPrompt = translateMalPrompt(tranMap, "random_deebot_dust_malfunction",
+                "dustMalfunction", false);
+        boolean bState = translateMalState(tranMap, "random_deebot_state_error");
+        boolean bTip = translateWarnTip(tranMap, "random_deebot_dust_malfunction");
+        return bPrompt && bState && bTip;
+    }
+
+    public boolean deebotMalfunction(Map<String, String> tranMap){
+        boolean bPrompt = translateMalPrompt(tranMap, "random_deebot_suspend_malfunction",
+                "deebotMalfunction", true);
+        boolean bState = translateMalState(tranMap, "random_deebot_state_standby");
+        boolean bTip = translateWarnTip(tranMap, "random_deebot_suspend_malfunction");
+        return bPrompt && bState && bTip;
+    }
+
+    private boolean translateSumWarnTip(Map<String, String> tranMap){
+        String strInfo = textViewWarnTip.getText().trim().substring(1);
+        boolean bWarnTip = strInfo.equalsIgnoreCase
+                (tranMap.get("random_deebot_warn_info_sum").trim());
+        if (!bWarnTip){
+            TranslateErrorReport.getInstance().insetNewLine(
+                    tranMap.get("language"), "Malfunction", strInfo,
+                    tranMap.get("random_deebot_warn_info_sum"), "fail");
+        }
+        return bWarnTip;
+    }
+
+    private boolean consumablePrompt(Map<String, String> tranMap, String strKey){
+        String strLanguage = tranMap.get("language");
+        Common.getInstance().showActivity(contentPrompt);
+        boolean bContent = contentPrompt.getText().trim().equalsIgnoreCase
+                (tranMap.get(strKey).trim());
+        if (!bContent){
+            TranslateErrorReport.getInstance().insetNewLine(
+                    strLanguage, "Consumble", contentPrompt.getText(),
+                    tranMap.get(strKey), "fail");
+        }
+        boolean bSure = viewPrompt.getText().trim().equalsIgnoreCase
+                (tranMap.get("random_deebot_btn_check").trim());
+        if (!bSure){
+            TranslateErrorReport.getInstance().insetNewLine(
+                    strLanguage, "Consumble", viewPrompt.getText(),
+                    tranMap.get("random_deebot_btn_check"), "fail");
+        }
+        boolean bCancel = surePrompt.getText().trim().equalsIgnoreCase
+                (tranMap.get("random_deebot_btn_ignore").trim());
+        if (!bCancel){
+            TranslateErrorReport.getInstance().insetNewLine(
+                    strLanguage, "Consumble", surePrompt.getText(),
+                    tranMap.get("random_deebot_btn_ignore"), "fail");
+        }
+        surePrompt.click();
+        return bContent && bSure && bCancel;
+    }
+
+    private boolean lowBatteryPrompt(Map<String, String> tranMap, String strKey){
+        String strLanguage = tranMap.get("language");
+        boolean bContent = contentPrompt.getText().trim().equalsIgnoreCase
+                (tranMap.get(strKey).trim());
+        if (!bContent){
+            TranslateErrorReport.getInstance().insetNewLine(
+                    strLanguage, "lowBattery", contentPrompt.getText(),
+                    tranMap.get(strKey), "fail");
+        }
+        boolean bSure = viewPrompt.getText().trim().equalsIgnoreCase
+                (tranMap.get("random_deebot_confirm").trim());
+        if (!bSure){
+            TranslateErrorReport.getInstance().insetNewLine(
+                    strLanguage, "lowBattery", viewPrompt.getText(),
+                    tranMap.get("random_deebot_confirm"), "fail");
+        }
+        boolean bCancel = surePrompt.getText().trim().equalsIgnoreCase
+                (tranMap.get("random_deebot_cancel").trim());
+        if (!bCancel){
+            TranslateErrorReport.getInstance().insetNewLine(
+                    strLanguage, "lowBattery", surePrompt.getText(),
+                    tranMap.get("random_deebot_cancel"), "fail");
+        }
+        surePrompt.click();
+        return bContent && bSure && bCancel;
+    }
+
+    public boolean stopCharge(Map<String, String> tranMap){
+        return lowBatteryPrompt(tranMap, "random_deebot_low_battery_stop_charge");
+    }
+
+    public boolean sideBrushWillExpire(Map<String, String> tranMap){
+        boolean bPrompt = consumablePrompt(tranMap, "random_deebot_sidebrush_low_hint1");
+        boolean bTip = translateWarnTip(tranMap, "random_deebot_sidebrush_low_hint1");
+        return bPrompt && bTip;
+    }
+
+    public boolean filterWillExpire(Map<String, String> tranMap){
+        boolean bPrompt = consumablePrompt(tranMap, "random_deebot_filter_low_hint1");
+        boolean bTip = translateSumWarnTip(tranMap);
+        return bPrompt && bTip;
+    }
+
+    public boolean filterExpired(Map<String, String> tranMap){
+        boolean bPrompt = consumablePrompt(tranMap, "random_deebot_filter_due_hint1");
+        boolean bTip = translateSumWarnTip(tranMap);
+        return bPrompt && bTip;
+    }
+
+    public boolean sideBrushExpired(Map<String, String> tranMap){
+        boolean bPrompt = consumablePrompt(tranMap, "random_deebot_sidebrush_due_hint1");
+        boolean bTip = translateSumWarnTip(tranMap);
+        return bPrompt && bTip;
+    }
+
 
 }

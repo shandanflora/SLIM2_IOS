@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
  * Created by ecosqa on 17/2/7.
  * test translate of intl app
  */
-public class TestIntlTranslate_English {
+public class TestIntlTranslate_Portuguese {
     private IOSDriver driver = null;
 
     @BeforeClass
@@ -23,13 +23,13 @@ public class TestIntlTranslate_English {
             return;
         }
         HandleIntl.getInstance().init(driver);
-        HandleIntl.getInstance().translate_init("English", "English");
-        HandleIntl.getInstance().translateErrorReport_init();
+        HandleIntl.getInstance().translate_init("Portuguese", "Portuguese");
+        //HandleIntl.getInstance().translateErrorReport_init();
     }
 
     @AfterClass
     public void tearDown(){
-        HandleIntl.getInstance().changeLanguage(PropertyData.getProperty("German"));
+        HandleIntl.getInstance().changeLanguage(PropertyData.getProperty("Italian"));
         driver.quit();
     }
 

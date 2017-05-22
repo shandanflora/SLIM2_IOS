@@ -73,16 +73,14 @@ public class MainActivity {
         btnAdd.click();
     }
 
-    public void clickDevice(){
-        List<MobileElement> rlList = listView.findElements(By.className("UIATableCell"));
-        for (MobileElement rl:rlList){
-            List<MobileElement> textList = rl.findElements(By.className("UIAStaticText"));
-            for (MobileElement text:textList){
-                logger.info("child elment--" + text.getText());
-                if (text.getText().contains(PropertyData.getProperty("SLIM2"))){
-                    text.click();
-                    break;
-                }
+    public void clickDevice(String strKey){
+        List<MobileElement> textList = listView.findElements(By.className("UIAStaticText"));
+        logger.info("textList size:" + textList.size());
+        for (MobileElement text:textList){
+            logger.info("child elment--" + text.getText());
+            if (text.getText().contains(PropertyData.getProperty(strKey))){
+                text.click();
+                break;
             }
         }
     }

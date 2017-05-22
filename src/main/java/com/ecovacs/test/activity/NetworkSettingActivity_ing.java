@@ -19,11 +19,11 @@ public class NetworkSettingActivity_ing {
 
     @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIANavigationBar[1]/UIAStaticText[1]")
     private MobileElement title = null;
-    @FindBy(xpath = " //UIAApplication[1]/UIAWindow[1]/UIANavigationBar[1]/UIAButton[2]")
+    @FindBy(xpath = " //UIAApplication[1]/UIAWindow[1]/UIANavigationBar[1]/UIAButton[1]")
     private MobileElement back = null;
     @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIAStaticText[1]")
     private MobileElement textSetting = null;
-    @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIAStaticText[3]")
+    @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIAStaticText[2]")
     private MobileElement textDoNotChange = null;
 
     private NetworkSettingActivity_ing(){
@@ -53,12 +53,12 @@ public class NetworkSettingActivity_ing {
                     strLanguage, "NetworkSetting_ing", title.getText(),
                     tranMap.get("random_deebot_select_network_set"), "fail");
         }
-        boolean bback = back.getText().equalsIgnoreCase(tranMap.get("random_deebot_cancel"));
+        /*boolean bback = back.getText().equalsIgnoreCase(tranMap.get("random_deebot_cancel"));
         if(!bback){
             TranslateErrorReport.getInstance().insetNewLine(
                     strLanguage, "NetworkSetting_ing", back.getText(),
                     tranMap.get("random_deebot_cancel"), "fail");
-        }
+        }*/
         boolean btextSetting = textSetting.getText().equalsIgnoreCase(tranMap.get("random_deebot_network_setting"));
         if(!btextSetting){
             TranslateErrorReport.getInstance().insetNewLine(
@@ -71,7 +71,7 @@ public class NetworkSettingActivity_ing {
                     strLanguage, "NetworkSetting_ing", textDoNotChange.getText(),
                     tranMap.get("random_deebot_not_switch"), "fail");
         }
-        return bTitle && bback && btextSetting && btextDoNotChange;
+        return bTitle /*&& bback*/ && btextSetting && btextDoNotChange;
     }
 
     public boolean translate(Map<String, String> tranMap){

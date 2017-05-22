@@ -166,8 +166,6 @@ public class TranslateIntl {
                 return tranMap;
             }
 
-            tranMap.put("language", strColName);
-
             for(int i = 1; i < iRowSize; i++){//headline(i = 0)
                 if (sheet.getRow(i).getCell(0) == null){
                     continue;

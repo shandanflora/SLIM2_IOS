@@ -20,7 +20,7 @@ public class ConnectGuideActivity {
     private MobileElement title = null;
     @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIANavigationBar[1]/UIAButton[1]")
     private MobileElement back = null;
-    @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIAStaticText[1]")
+    @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIATextView[1]")
     private MobileElement textTips = null;
     @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIAButton[1]")
     private MobileElement btnNext = null;
@@ -49,7 +49,7 @@ public class ConnectGuideActivity {
         back.click();
     }
 
-    private boolean staticUI(Map<String, String> tranMap){
+    private boolean staticUI(Map<String, String> tranMap, String strKey){
         String strLanguage = tranMap.get("language");
         boolean bTitle = title.getText().equalsIgnoreCase(tranMap.get("random_deebot_select_guide"));
         if(!bTitle){
@@ -57,11 +57,11 @@ public class ConnectGuideActivity {
                     strLanguage, "ConnectGuide", title.getText(),
                     tranMap.get("random_deebot_select_guide"), "fail");
         }
-        String strTips = tranMap.get("random_deebot_connect_tip").replace("\\n", "");
-        boolean btextTips = textTips.getText().equalsIgnoreCase(strTips.trim());
+        String strTips = tranMap.get(strKey);
+        boolean btextTips = textTips.getText().trim().equalsIgnoreCase(strTips.trim());
         if(!btextTips){
             TranslateErrorReport.getInstance().insetNewLine(
-                    strLanguage, "ConnectGuide", textTips.getText(),
+                    strLanguage, "ConnectGuide", textTips.getText().trim(),
                     strTips.trim(), "fail");
         }
         boolean bbtnNext = btnNext.getText().equalsIgnoreCase(tranMap.get("random_deebot_select_next"));
@@ -73,8 +73,8 @@ public class ConnectGuideActivity {
         return bTitle && btextTips && bbtnNext;
     }
 
-    public boolean translate(Map<String, String> tranMap){
-        return staticUI(tranMap);
+    public boolean translate(Map<String, String> tranMap, String strKey){
+        return staticUI(tranMap, strKey);
     }
 
 

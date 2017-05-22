@@ -29,6 +29,10 @@ public class NetworkSettingActivity {
     private MobileElement textNot5G = null;
     @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIAButton[1]")
     private MobileElement textChangeWlan = null;
+    @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIATextField[1]")
+    private MobileElement editWifi = null;
+    @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIATextField[1]/UIAButton[1]")
+    private MobileElement clearWifi = null;
     @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIATextField[2]")
     private MobileElement editPassword = null;
     @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIAButton[3]")
@@ -96,8 +100,24 @@ public class NetworkSettingActivity {
                 btextChangeWlan && beditPassword && bbtnNextStep;
     }
 
+    boolean translateWifiName(Map<String, String> tranMap){
+        String strLanguage = tranMap.get("language");
+        editWifi.click();
+        clearWifi.click();
+        textConnectWlan.click();
+        boolean bWifi = editWifi.getText().equalsIgnoreCase(tranMap.get("random_deebot_wifi"));
+        if(!bWifi){
+            TranslateErrorReport.getInstance().insetNewLine(
+                    strLanguage, "NetworkSetting", editWifi.getText(),
+                    tranMap.get("random_deebot_wifi"), "fail");
+        }
+        return bWifi;
+    }
+
     public boolean translate(Map<String, String> tranMap){
-        return staticUI(tranMap);
+        boolean bStatic = staticUI(tranMap);
+        boolean bWifi = translateWifiName(tranMap);
+        return bStatic && bWifi;
     }
 
     public void clickNext(){

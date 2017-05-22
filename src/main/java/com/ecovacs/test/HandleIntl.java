@@ -1,10 +1,7 @@
 package com.ecovacs.test;
 
 import com.ecovacs.test.activity.*;
-import com.ecovacs.test.common.Common;
-import com.ecovacs.test.common.JsonParse;
-import com.ecovacs.test.common.TranslateErrorReport;
-import com.ecovacs.test.common.TranslateIntl;
+import com.ecovacs.test.common.*;
 import io.appium.java_client.ios.IOSDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -240,8 +237,8 @@ class HandleIntl {
     void changeLanguage(String strLanguage){
         //return deebot clean
         //SettingActivity.getInstance().clickBack();
-        //return main
-        //mvUnibotCleanActivity.getInstance().clickBack();
+        //return com.ecovacs.test.main
+        //UnibotCleanActivity.getInstance().clickBack();
         /*if(!login("Japan", PropertyData.getProperty("hotmail_email"), PropertyData.getProperty("login_pass"))){
             logger.error("login failed!!!");
             return;
@@ -250,12 +247,12 @@ class HandleIntl {
         MainActivity.getInstance().clickMore();
         MoreActivity.getInstance().clickLanguage();
         LanguageActivity.getInstance().selectLanguage(strLanguage);
-        //return main
+        //return com.ecovacs.test.main
         MoreActivity.getInstance().clickBack();
         MainActivity.getInstance().showDeviceList();
-        if(!logout()){
+        /*if(!logout()){
             logger.info("logout failed!!!");
-        }
+        }*/
     }
 
     void translateErrorReport_init(){
@@ -263,17 +260,18 @@ class HandleIntl {
         TranslateErrorReport.getInstance().init(list);
     }
 
-    void translate_init(String strColName){
-        Map<String, String> tranMapCommon = TranslateIntl.getInstance().readExcel("Translate.xlsx", strColName);
+    void translate_init(String strColNameCommon, String strColName){
+        Map<String, String> tranMapCommon = TranslateIntl.getInstance().readExcel("Translate.xlsx", strColNameCommon);
         if(tranMapCommon.isEmpty()){
             logger.error("The language map is empty!!!");
             return;
         }
-        Map<String, String> tranMap = TranslateIntl.getInstance().readExcel("Random_translate.xlsx", strColName);
+        Map<String, String> tranMap = TranslateIntl.getInstance().readExcel("SLIM2.xlsx", strColName);
         if(tranMap.isEmpty()){
             logger.error("The language map is empty!!!");
             return;
         }
+        tranMap.put("language", strColName);
         tranMap.putAll(tranMapCommon);
         languageMap = tranMap;
     }
@@ -328,6 +326,7 @@ class HandleIntl {
     }
 
     boolean translateSelectDEEBOT(){
+        MainActivity.getInstance().showActivity();
         MainActivity.getInstance().clickAdd();
         boolean bRes = SelectDEEBOTActivity.getInstance().translate(languageMap);
         SelectDEEBOTActivity.getInstance().clickBack();
@@ -337,7 +336,7 @@ class HandleIntl {
     boolean translateNetworkSetting(){
         MainActivity.getInstance().showActivity();
         MainActivity.getInstance().clickAdd();
-        SelectDEEBOTActivity.getInstance().selectDM80i("DM80i (DEEBOT)");
+        SelectDEEBOTActivity.getInstance().selectDM80i(PropertyData.getProperty("NETWORK_DEV"));
         NetworkSettingActivity.getInstance().showActivity();
         boolean bRes = NetworkSettingActivity.getInstance().translate(languageMap);
         NetworkSettingActivity.getInstance().clickBack();
@@ -345,13 +344,28 @@ class HandleIntl {
         return bRes;
     }
 
-    boolean translateConnectGuide(){
+    boolean translateConnectGuide1(){
         MainActivity.getInstance().showActivity();
         MainActivity.getInstance().clickAdd();
-        SelectDEEBOTActivity.getInstance().selectDM80i("DM80i (DEEBOT)");
+        SelectDEEBOTActivity.getInstance().selectDM80i(PropertyData.getProperty("NETWORK_DEV"));
         NetworkSettingActivity.getInstance().showActivity();
         NetworkSettingActivity.getInstance().clickNext();
-        boolean bRes = ConnectGuideActivity.getInstance().translate(languageMap);
+        boolean bRes = ConnectGuideActivity.getInstance().translate(languageMap, "random_deebot_network_power_on");
+        ConnectGuideActivity.getInstance().clickBack();
+        NetworkSettingActivity.getInstance().clickBack();
+        SelectDEEBOTActivity.getInstance().clickBack();
+        return bRes;
+    }
+
+    boolean translateConnectGuide2(){
+        MainActivity.getInstance().showActivity();
+        MainActivity.getInstance().clickAdd();
+        SelectDEEBOTActivity.getInstance().selectDM80i(PropertyData.getProperty("NETWORK_DEV"));
+        NetworkSettingActivity.getInstance().showActivity();
+        NetworkSettingActivity.getInstance().clickNext();
+        ConnectGuideActivity.getInstance().clickNext();
+        boolean bRes = ConnectGuideActivity.getInstance().translate(languageMap, "random_deebot_connect_tip_silm2");
+        ConnectGuideActivity.getInstance().clickBack();
         ConnectGuideActivity.getInstance().clickBack();
         NetworkSettingActivity.getInstance().clickBack();
         SelectDEEBOTActivity.getInstance().clickBack();
@@ -361,9 +375,10 @@ class HandleIntl {
     boolean translateNetworkSettingActivity_ing(){
         MainActivity.getInstance().showActivity();
         MainActivity.getInstance().clickAdd();
-        SelectDEEBOTActivity.getInstance().selectDM80i("DM80i (DEEBOT)");
+        SelectDEEBOTActivity.getInstance().selectDM80i(PropertyData.getProperty("NETWORK_DEV"));
         NetworkSettingActivity.getInstance().showActivity();
         NetworkSettingActivity.getInstance().clickNext();
+        ConnectGuideActivity.getInstance().clickNext();
         ConnectGuideActivity.getInstance().clickNext();
         boolean bRes = NetworkSettingActivity_ing.getInstance().translate(languageMap);
         NetworkSettingActivity_ing.getInstance().clickCancel();
@@ -375,9 +390,10 @@ class HandleIntl {
     boolean translateSwitchWLAN(){
         MainActivity.getInstance().showActivity();
         MainActivity.getInstance().clickAdd();
-        SelectDEEBOTActivity.getInstance().selectDM80i("DM80i (DEEBOT)");
+        SelectDEEBOTActivity.getInstance().selectDM80i(PropertyData.getProperty("NETWORK_DEV"));
         NetworkSettingActivity.getInstance().showActivity();
         NetworkSettingActivity.getInstance().clickNext();
+        ConnectGuideActivity.getInstance().clickNext();
         ConnectGuideActivity.getInstance().clickNext();
         //wait 90 second
         Common.getInstance().waitForSecond(1000 * 90);
@@ -393,9 +409,10 @@ class HandleIntl {
     boolean translateFailNetworkSetting(){
         MainActivity.getInstance().showActivity();
         MainActivity.getInstance().clickAdd();
-        SelectDEEBOTActivity.getInstance().selectDM80i("DM80i (DEEBOT)");
+        SelectDEEBOTActivity.getInstance().selectDM80i(PropertyData.getProperty("NETWORK_DEV"));
         NetworkSettingActivity.getInstance().showActivity();
         NetworkSettingActivity.getInstance().clickNext();
+        ConnectGuideActivity.getInstance().clickNext();
         ConnectGuideActivity.getInstance().clickNext();
         //wait 90 second
         Common.getInstance().waitForSecond(1000 * 90);
@@ -469,9 +486,10 @@ class HandleIntl {
     boolean translateUnibotClean(){
         MainActivity.getInstance().showDeviceList();
         Common.getInstance().waitForSecond(2000);
-        MainActivity.getInstance().clickDevice();
+        MainActivity.getInstance().clickDevice("SLIM2");
         UnibotCleanActivity.getInstance().showActivity();
-        UnibotCleanActivity.getInstance().showText("-");
+        Common.getInstance().waitForSecond(2000);
+        //UnibotCleanActivity.getInstance().showText("-");
         boolean bRes = UnibotCleanActivity.getInstance().translate(languageMap);
         //only for work log
         UnibotCleanActivity.getInstance().clickAuto7();
@@ -480,7 +498,7 @@ class HandleIntl {
 
     boolean translateUnibotSetting(){
         //will delete
-        //MainActivity.getInstance().clickDevice();
+        //MainActivity.getInstance().clickDevice(PropertyData.getProperty("SLIM2"));
         //
         UnibotCleanActivity.getInstance().showActivity();
         UnibotCleanActivity.getInstance().clickSetting();

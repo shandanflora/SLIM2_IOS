@@ -19,7 +19,7 @@ public class SwitchWLANActivity {
 
     @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIANavigationBar[1]/UIAStaticText[1]")
     private MobileElement title = null;
-    @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIANavigationBar[1]/UIAButton[2]")
+    @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIANavigationBar[1]/UIAButton[1]")
     private MobileElement btnCancel = null;
     @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIAStaticText[1]")
     private MobileElement textDescription = null;
@@ -55,20 +55,19 @@ public class SwitchWLANActivity {
                     strLanguage, "SwitchWLAN", title.getText().trim(),
                     tranMap.get("random_deebot_select_change_wlan").trim(), "fail");
         }
-        boolean bbtnCancel = btnCancel.getText().equalsIgnoreCase(tranMap.get("random_deebot_cancel"));
+        /*boolean bbtnCancel = btnCancel.getText().equalsIgnoreCase(tranMap.get("random_deebot_cancel"));
         if(!bbtnCancel){
             TranslateErrorReport.getInstance().insetNewLine(
                     strLanguage, "SwitchWLAN", btnCancel.getText(),
                     tranMap.get("random_deebot_cancel"), "fail");
-        }
-        boolean btextDescription = textDescription.getText().equalsIgnoreCase(tranMap.get("random_deebot_connect_wifi"));
-        String str = textDescription.getText();
+        }*/
+        boolean btextDescription = textDescription.getText().trim().equalsIgnoreCase(tranMap.get("random_deebot_connect_wifi").trim());
         if(!btextDescription){
             TranslateErrorReport.getInstance().insetNewLine(
-                    strLanguage, "SwitchWLAN", textDescription.getText(),
-                    tranMap.get("random_deebot_connect_wifi"), "fail");
+                    strLanguage, "SwitchWLAN", textDescription.getText().trim(),
+                    tranMap.get("random_deebot_connect_wifi").trim(), "fail");
         }
-        return bTitle && bbtnCancel && btextDescription;
+        return bTitle /*&& bbtnCancel*/ && btextDescription;
     }
 
     public boolean translate(Map<String, String> tranMap){

@@ -19,11 +19,11 @@ public class FailNetworkSettingActivity {
 
     @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIANavigationBar[1]/UIAStaticText[1]")
     private MobileElement title = null;
-    @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIANavigationBar[1]/UIAButton[2]")
+    @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIANavigationBar[1]/UIAButton[1]")
     private MobileElement back = null;
     @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIAStaticText[1]")
     private MobileElement textTipTitle = null;
-    @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIAStaticText[2]")
+    @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIATextView[1]")
     private MobileElement textTipDescription = null;
     @FindBy(xpath = "//UIAApplication[1]/UIAWindow[1]/UIAButton[1]")
     private MobileElement btnRetry = null;
@@ -55,23 +55,28 @@ public class FailNetworkSettingActivity {
                     strLanguage, "FailNetworkSetting", title.getText(),
                     tranMap.get("random_deebot_select_network_set"), "fail");
         }
-        boolean bback = back.getText().equalsIgnoreCase(tranMap.get("random_deebot_cancel"));
+        /*boolean bback = back.getText().equalsIgnoreCase(tranMap.get("random_deebot_cancel"));
         if(!bback){
             TranslateErrorReport.getInstance().insetNewLine(
                     strLanguage, "FailNetworkSetting", back.getText(),
                     tranMap.get("random_deebot_cancel"), "fail");
-        }
+        }*/
         boolean btextTipTitle = textTipTitle.getText().equalsIgnoreCase(tranMap.get("random_deebot_network_fail"));
         if(!btextTipTitle){
             TranslateErrorReport.getInstance().insetNewLine(
                     strLanguage, "FailNetworkSetting", textTipTitle.getText(),
                     tranMap.get("random_deebot_network_fail"), "fail");
         }
-        String strError = tranMap.get("config_net_error_ios").replace("\\n", " ");
-        boolean btextTipDescription = textTipDescription.getText().equalsIgnoreCase(strError);
+        String title = tranMap.get("config_net_error_title") + ("\n");
+        String strDes = tranMap.get("config_net_error_ios").replace("\\n", "\n") + ("\n");
+        String strDes7 = ("6.") + tranMap.get("config_net_error7");
+        System.out.println(strDes7);
+        String strError = title + strDes + strDes7;
+        System.out.println(strError);
+        boolean btextTipDescription = textTipDescription.getText().trim().equalsIgnoreCase(strError);
         if(!btextTipDescription){
             TranslateErrorReport.getInstance().insetNewLine(
-                    strLanguage, "FailNetworkSetting", textTipDescription.getText(),
+                    strLanguage, "FailNetworkSetting", textTipDescription.getText().trim(),
                     strError, "fail");
         }
         boolean bbtnRetry = btnRetry.getText().equalsIgnoreCase(tranMap.get("config_net_retry"));
