@@ -91,7 +91,7 @@ public class UnibotCleanActivity {
         boolean bResult = false;
         int iLoop = 0;
         while (true) {
-            if (iLoop > 150) {
+            if (iLoop > 50) {
                 break;
             }
             if (textViewStatusValue.getText().contains(strText)) {
@@ -231,7 +231,7 @@ public class UnibotCleanActivity {
                     strLanguage, "UnibotClean", textViewStatusValue.getText(),
                     tranMap.get("random_deebot_state_clean"), "fail");
         }
-        Common.getInstance().waitForSecond(1000);
+        Common.getInstance().waitForSecond(1000 * 5);
         //check stand by
         element.click();
         logger.info(textViewStatusValue.getText());

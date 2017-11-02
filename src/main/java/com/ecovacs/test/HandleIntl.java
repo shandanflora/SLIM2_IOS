@@ -498,7 +498,7 @@ class HandleIntl {
 
     boolean translateUnibotSetting(){
         //will delete
-        //MainActivity.getInstance().clickDevice(PropertyData.getProperty("SLIM2"));
+        //MainActivity.getInstance().clickDevice("SLIM2");
         //
         UnibotCleanActivity.getInstance().showActivity();
         UnibotCleanActivity.getInstance().clickSetting();
@@ -700,7 +700,10 @@ class HandleIntl {
         for (int i = 1; i < 6; i++){
             RepetitionActivity.getInstance().clickWeekOfDate(i);
         }
-        RepetitionActivity.getInstance().clickWeekOfDate(Common.getInstance().getWeekIndex());
+        int iIndex = Common.getInstance().getWeekIndex();
+        if (iIndex != 1){
+            RepetitionActivity.getInstance().clickWeekOfDate(iIndex);
+        }
         RepetitionActivity.getInstance().clickBack();
         NewScheduleActivity.getInstance().clickConfirmAdd();
         boolean bRes = TimeScheduleActivity.getInstance().translateAddNewSchedule(languageMap, 8);
@@ -753,7 +756,7 @@ class HandleIntl {
         boolean bRepeat = NewScheduleActivity.getInstance().repeatTimeSchedule(languageMap);
         NewScheduleActivity.getInstance().clickBack();
         TimeScheduleActivity.getInstance().delAllTasks();
-        TimeScheduleActivity.getInstance().showAddedActivity();
+        TimeScheduleActivity.getInstance().showEmptyActivity();
         return bRepeat;
     }
 

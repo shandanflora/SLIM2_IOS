@@ -132,7 +132,10 @@ public class NewScheduleActivity {
         for(int i = 1; i < 6; i++){
             RepetitionActivity.getInstance().clickWeekOfDate(i);
         }
-        RepetitionActivity.getInstance().clickWeekOfDate(Common.getInstance().getWeekIndex());
+        int iIndex = Common.getInstance().getWeekIndex();
+        if(iIndex != 1){
+            RepetitionActivity.getInstance().clickWeekOfDate(Common.getInstance().getWeekIndex());
+        }
         RepetitionActivity.getInstance().clickBack();
         boolean brepeatValue = repeatValue.getText().equalsIgnoreCase(tranMap.get("random_deebot_workdays"));
         if (!brepeatValue){

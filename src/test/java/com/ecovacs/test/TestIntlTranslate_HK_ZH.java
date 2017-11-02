@@ -24,7 +24,7 @@ public class TestIntlTranslate_HK_ZH {
         }
         HandleIntl.getInstance().init(driver);
         HandleIntl.getInstance().translate_init("HK", "HK");
-        //HandleIntl.getInstance().translateErrorReport_init();
+        HandleIntl.getInstance().translateErrorReport_init();
     }
 
     @AfterClass

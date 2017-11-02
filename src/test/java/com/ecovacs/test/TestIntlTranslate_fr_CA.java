@@ -24,7 +24,7 @@ public class TestIntlTranslate_fr_CA {
         }
         HandleIntl.getInstance().init(driver);
         HandleIntl.getInstance().translate_init("fr-CA", "fr-CA");
-        //HandleIntl.getInstance().translateErrorReport_init();
+        HandleIntl.getInstance().translateErrorReport_init();
     }
 
     @AfterClass
